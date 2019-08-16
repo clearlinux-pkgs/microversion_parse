@@ -4,31 +4,26 @@
 #
 Name     : microversion_parse
 Version  : 0.2.1
-Release  : 4
+Release  : 5
 URL      : https://files.pythonhosted.org/packages/7e/ec/4dff77cbcad8e0d1ce151c7bf5a10e305e6c65ef067c0dc8dfa6db2c3206/microversion_parse-0.2.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/7e/ec/4dff77cbcad8e0d1ce151c7bf5a10e305e6c65ef067c0dc8dfa6db2c3206/microversion_parse-0.2.1.tar.gz
 Summary  : OpenStack microversion header parser
 Group    : Development/Tools
 License  : Apache-2.0
-Requires: microversion_parse-python3
-Requires: microversion_parse-license
-Requires: microversion_parse-python
+Requires: microversion_parse-license = %{version}-%{release}
+Requires: microversion_parse-python = %{version}-%{release}
+Requires: microversion_parse-python3 = %{version}-%{release}
 Requires: WebOb
+BuildRequires : WebOb
 BuildRequires : buildreq-distutils3
 BuildRequires : pbr
 
 %description
+microversion_parse
 ==================
-        
-        A small set of functions to manage OpenStack `microversion`_ headers that can
-        be used in middleware, application handlers and decorators to effectively
-        manage microversions.
-        
-        Also included, in the ``middleware`` module, is a ``MicroversionMiddleware``
-        that will process incoming microversion headers.
-        
-        get_version
-        -----------
+A small set of functions to manage OpenStack `microversion`_ headers that can
+be used in middleware, application handlers and decorators to effectively
+manage microversions.
 
 %package license
 Summary: license components for the microversion_parse package.
@@ -41,7 +36,7 @@ license components for the microversion_parse package.
 %package python
 Summary: python components for the microversion_parse package.
 Group: Default
-Requires: microversion_parse-python3
+Requires: microversion_parse-python3 = %{version}-%{release}
 
 %description python
 python components for the microversion_parse package.
@@ -63,15 +58,23 @@ python3 components for the microversion_parse package.
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1533829038
-python3 setup.py build -b py3
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1565962632
+# -Werror is for werrorists
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
+export MAKEFLAGS=%{?_smp_mflags}
+python3 setup.py build
 
 %install
+export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/microversion_parse
-cp LICENSE %{buildroot}/usr/share/doc/microversion_parse/LICENSE
-python3 -tt setup.py build -b py3 install --root=%{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/microversion_parse
+cp LICENSE %{buildroot}/usr/share/package-licenses/microversion_parse/LICENSE
+python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
@@ -80,8 +83,8 @@ echo ----[ mark ]----
 %defattr(-,root,root,-)
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/microversion_parse/LICENSE
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/microversion_parse/LICENSE
 
 %files python
 %defattr(-,root,root,-)
