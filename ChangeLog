@@ -1,6 +1,16 @@
 CHANGES
 =======
 
+1.0.0
+-----
+
+* [ussuri][goal] Drop python 2.7 support and testing
+* OpenDev Migration Patch
+* Change openstack-dev to openstack-discuss
+* Add python36 jobs to microversion-parse
+* Copy zuul job settings from project-config
+* fix tox python3 overrides
+
 0.2.1
 -----
 
