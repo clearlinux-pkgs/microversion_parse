@@ -1,6 +1,12 @@
 CHANGES
 =======
 
+1.0.1
+-----
+
+* fix python version in tox file: py35 -> py37
+* adding missing releasenote for the drop of py27 support
+
 1.0.0
 -----
 
