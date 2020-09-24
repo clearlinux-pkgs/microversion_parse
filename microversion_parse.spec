@@ -4,7 +4,7 @@
 #
 Name     : microversion_parse
 Version  : 1.0.1
-Release  : 12
+Release  : 13
 URL      : https://files.pythonhosted.org/packages/1c/bb/ffeb8ac7acfe77425220352f1338e164ceb1177fdb69f7bcbc6750ca878d/microversion_parse-1.0.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/1c/bb/ffeb8ac7acfe77425220352f1338e164ceb1177fdb69f7bcbc6750ca878d/microversion_parse-1.0.1.tar.gz
 Summary  : OpenStack microversion header parser
